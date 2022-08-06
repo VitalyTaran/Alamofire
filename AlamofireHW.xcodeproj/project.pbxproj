@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		23613F43289F1B09003BC346 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23613F42289F1B09003BC346 /* TableViewCell.swift */; };
+		23613F45289F1C47003BC346 /* String + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23613F44289F1C47003BC346 /* String + Ext.swift */; };
+		23613F47289F1C77003BC346 /* Characters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23613F46289F1C77003BC346 /* Characters.swift */; };
 		23EDC626289F14C6001FB96D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EDC625289F14C6001FB96D /* AppDelegate.swift */; };
 		23EDC628289F14C6001FB96D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EDC627289F14C6001FB96D /* SceneDelegate.swift */; };
 		23EDC62A289F14C6001FB96D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EDC629289F14C6001FB96D /* ViewController.swift */; };
@@ -17,6 +20,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		23613F42289F1B09003BC346 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		23613F44289F1C47003BC346 /* String + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Ext.swift"; sourceTree = "<group>"; };
+		23613F46289F1C77003BC346 /* Characters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Characters.swift; sourceTree = "<group>"; };
 		23EDC622289F14C6001FB96D /* AlamofireHW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlamofireHW.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23EDC625289F14C6001FB96D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		23EDC627289F14C6001FB96D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -65,11 +71,14 @@
 			children = (
 				23EDC625289F14C6001FB96D /* AppDelegate.swift */,
 				23EDC627289F14C6001FB96D /* SceneDelegate.swift */,
+				23613F44289F1C47003BC346 /* String + Ext.swift */,
 				23EDC629289F14C6001FB96D /* ViewController.swift */,
+				23613F42289F1B09003BC346 /* TableViewCell.swift */,
 				23EDC62B289F14C6001FB96D /* Main.storyboard */,
 				23EDC62E289F14C7001FB96D /* Assets.xcassets */,
 				23EDC630289F14C7001FB96D /* LaunchScreen.storyboard */,
 				23EDC633289F14C7001FB96D /* Info.plist */,
+				23613F46289F1C77003BC346 /* Characters.swift */,
 			);
 			path = AlamofireHW;
 			sourceTree = "<group>";
@@ -80,7 +89,6 @@
 				A85C964B09C5122AD3C99FB4 /* Pods-AlamofireHW.debug.xcconfig */,
 				77087FE2F7FF92286622FD65 /* Pods-AlamofireHW.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -190,6 +198,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				23EDC62A289F14C6001FB96D /* ViewController.swift in Sources */,
+				23613F47289F1C77003BC346 /* Characters.swift in Sources */,
+				23613F43289F1B09003BC346 /* TableViewCell.swift in Sources */,
+				23613F45289F1C47003BC346 /* String + Ext.swift in Sources */,
 				23EDC626289F14C6001FB96D /* AppDelegate.swift in Sources */,
 				23EDC628289F14C6001FB96D /* SceneDelegate.swift in Sources */,
 			);
