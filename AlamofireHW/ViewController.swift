@@ -7,7 +7,6 @@
 
 import UIKit
 import Pods_AlamofireHW
-
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
