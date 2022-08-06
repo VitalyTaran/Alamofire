@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		23613F43289F1B09003BC346 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23613F42289F1B09003BC346 /* TableViewCell.swift */; };
+		23613F45289F1C47003BC346 /* String + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23613F44289F1C47003BC346 /* String + Ext.swift */; };
+		23613F47289F1C77003BC346 /* Characters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23613F46289F1C77003BC346 /* Characters.swift */; };
+		23613F49289F1D0D003BC346 /* Pods_AlamofireHW.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23613F48289F1D0D003BC346 /* Pods_AlamofireHW.framework */; };
+		23613F4A289F1D0D003BC346 /* Pods_AlamofireHW.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 23613F48289F1D0D003BC346 /* Pods_AlamofireHW.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		23EDC626289F14C6001FB96D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EDC625289F14C6001FB96D /* AppDelegate.swift */; };
 		23EDC628289F14C6001FB96D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EDC627289F14C6001FB96D /* SceneDelegate.swift */; };
 		23EDC62A289F14C6001FB96D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EDC629289F14C6001FB96D /* ViewController.swift */; };
@@ -16,7 +21,25 @@
 		8269325170BB607F58EBF8C1 /* Pods_AlamofireHW.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE1AEC22BB10080E0BF2ED3C /* Pods_AlamofireHW.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		23613F4B289F1D0D003BC346 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				23613F4A289F1D0D003BC346 /* Pods_AlamofireHW.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		23613F42289F1B09003BC346 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		23613F44289F1C47003BC346 /* String + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Ext.swift"; sourceTree = "<group>"; };
+		23613F46289F1C77003BC346 /* Characters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Characters.swift; sourceTree = "<group>"; };
+		23613F48289F1D0D003BC346 /* Pods_AlamofireHW.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_AlamofireHW.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		23EDC622289F14C6001FB96D /* AlamofireHW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlamofireHW.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23EDC625289F14C6001FB96D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		23EDC627289F14C6001FB96D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -35,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23613F49289F1D0D003BC346 /* Pods_AlamofireHW.framework in Frameworks */,
 				8269325170BB607F58EBF8C1 /* Pods_AlamofireHW.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -65,11 +89,14 @@
 			children = (
 				23EDC625289F14C6001FB96D /* AppDelegate.swift */,
 				23EDC627289F14C6001FB96D /* SceneDelegate.swift */,
+				23613F44289F1C47003BC346 /* String + Ext.swift */,
 				23EDC629289F14C6001FB96D /* ViewController.swift */,
+				23613F42289F1B09003BC346 /* TableViewCell.swift */,
 				23EDC62B289F14C6001FB96D /* Main.storyboard */,
 				23EDC62E289F14C7001FB96D /* Assets.xcassets */,
 				23EDC630289F14C7001FB96D /* LaunchScreen.storyboard */,
 				23EDC633289F14C7001FB96D /* Info.plist */,
+				23613F46289F1C77003BC346 /* Characters.swift */,
 			);
 			path = AlamofireHW;
 			sourceTree = "<group>";
@@ -80,13 +107,13 @@
 				A85C964B09C5122AD3C99FB4 /* Pods-AlamofireHW.debug.xcconfig */,
 				77087FE2F7FF92286622FD65 /* Pods-AlamofireHW.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
 		FEDF33D446F43166B971FFA1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				23613F48289F1D0D003BC346 /* Pods_AlamofireHW.framework */,
 				AE1AEC22BB10080E0BF2ED3C /* Pods_AlamofireHW.framework */,
 			);
 			name = Frameworks;
@@ -103,6 +130,7 @@
 				23EDC61E289F14C6001FB96D /* Sources */,
 				23EDC61F289F14C6001FB96D /* Frameworks */,
 				23EDC620289F14C6001FB96D /* Resources */,
+				23613F4B289F1D0D003BC346 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -190,6 +218,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				23EDC62A289F14C6001FB96D /* ViewController.swift in Sources */,
+				23613F47289F1C77003BC346 /* Characters.swift in Sources */,
+				23613F43289F1B09003BC346 /* TableViewCell.swift in Sources */,
+				23613F45289F1C47003BC346 /* String + Ext.swift in Sources */,
 				23EDC626289F14C6001FB96D /* AppDelegate.swift in Sources */,
 				23EDC628289F14C6001FB96D /* SceneDelegate.swift in Sources */,
 			);
