@@ -2,23 +2,24 @@
 //  DetailsViewController.swift
 //  AlamofireHW
 //
-//  Created by Виталий Таран on 07.08.2022.
+//  Created by Виталий Таран on 08.08.2022.
 //
 
 import UIKit
 
 class DetailsViewController: UIViewController {
 
+    // MARK: - Properties
 
     @IBOutlet weak var portraitImageView: UIImageView!
-
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
 
-//        nameLabel.text = "dffd"
-        // Do any additional setup after loading the view.
+    // MARK: - Configuration
+
+    func configureWith(_ comic: Comic, image: UIImage?) {
+        portraitImageView.image = image
+        nameLabel.text = comic.title
+        detailLabel.text = comic.description
     }
 }

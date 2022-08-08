@@ -6,30 +6,34 @@
 //
 
 import UIKit
-import Alamofire
 
 class ViewController: UIViewController {
 
-let network = NetworkManager()
-
-    var comics: [Comic] = []
-
+    // MARK: - Properties
+    
     @IBOutlet weak var tableView: UITableView!
-    let searchController = UISearchController(searchResultsController: nil)
 
+    private let network = NetworkManager()
+    private let urlConstructor = URLConstructor()
+    private var timer: Timer?
+    private var comics: [Comic] = []
+
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationItem.title = "Marvel Digital Comics"
         navigationController?.navigationBar.prefersLargeTitles = true
+        
         view.addSubview(tableView)
         setupSearchBar()
         setupTableView()
-//        fetchSeries(from: Constants.marvelDigitalComics)
-        fetchComics(from: Constants.marvelDigitalComics)
+        fetchComics(from: urlConstructor.getUrl(name: nil, value: nil))
     }
 
+    // MARK: - Settings Views
+    
     private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -37,45 +41,55 @@ let network = NetworkManager()
     }
 
     private func setupSearchBar() {
+        let searchController = UISearchController(searchResultsController: nil)
         navigationItem.searchController = searchController
+        searchController.searchBar.placeholder = "Search by title..."
         searchController.searchBar.delegate = self
     }
 
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"),
+                                      style: .default, handler: { _ in
+            NSLog("The \"OK\" alert occured.")
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    // MARK: - Private functions
+
     private func fetchComics(from url: String) {
-        network.fetchSeries(from: url) { result in
+        network.fetchSeries(from: url) { (result) in
             switch result {
             case .success(let comics):
                 self.comics = comics
+                if self.comics.isEmpty {
+                    self.showAlert(title: ":(", message: "Title not found")
+                }
                 self.tableView.reloadData()
             case .failure(let error):
                 print("Error received requesting data: \(error.localizedDescription)")
+                self.showAlert(title: "Request error", message: error.localizedDescription)
             }
         }
     }
-    private func fetchSeries(from url: String) {
 
-        AF.request(url).responseDecodable(of: DataMarvel.self) { data in
-            guard let dataValue = data.value else {
-                print("no data")
-                return }
+    private func getImage(path: String?, size: ImageSize, extention: String?) -> UIImage? {
 
-            DispatchQueue.main.async {
-                let comics = dataValue.data.results
-                self.comics = comics
-                self.tableView.reloadData()
+        if let path = path, let extention = extention {
+            let url = path.makeHttps + size.set + extention
+            if let imageUrl = URL(string: url),
+               let  imageData = try? Data(contentsOf: imageUrl) {
+                return UIImage(data: imageData)
+            } else {
+                return UIImage(systemName: "photo.artframe")
             }
         }
+        return UIImage(systemName: "photo.artframe")
     }
 }
 
-private func getImage(url: String) -> UIImage? {
-    if let imageUrl = URL(string: url),
-       let  imageData = try? Data(contentsOf: imageUrl) {
-        return UIImage(data: imageData)
-    } else {
-       return UIImage(named: "square-image")
-    }
-}
+// MARK: - UITableViewDataSource, UITableViewDelegate
 
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -83,37 +97,29 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let comic = comics[indexPath.row]
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell",
+                                                       for: indexPath) as? TableViewCell else { return UITableViewCell() }
+        let image = getImage(path: comic.thumbnail?.path,
+                             size: .small,
+                             extention: comic.thumbnail?.imageExtension)
+        
+        cell.configureWith(comic, image: image)
 
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? TableViewCell else { return UITableViewCell() }
-        var content = cell.defaultContentConfiguration()
-
-        content.text = "\(comics[indexPath.row].title)"
-//        content.textProperties.font =
-//        content.secondaryText = "issue number: \(Int(comics[indexPath.row].issueNumber ?? 0))"
-//        content.secondaryTextProperties.color = .secondaryLabel
-        let image = getImage(url: (comics[indexPath.row].thumbnail?.path.makeUrlThumb ?? "") +
-                             (comics[indexPath.row].thumbnail?.imageExtension ?? ""))
-        content.image = image
-        cell.accessoryType = .disclosureIndicator
-        cell.contentConfiguration = content
-
-return cell
+        return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(comics[indexPath.row].title)
+        let comic = comics[indexPath.row]
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let detailVC = storyboard.instantiateViewController(withIdentifier: "DetailsViewController") as! DetailsViewController
+        guard let detailVC = storyboard.instantiateViewController(withIdentifier: "DetailsViewController") as? DetailsViewController else { return }
 
         detailVC.view.backgroundColor = .systemBackground
-        let image = getImage(url: (comics[indexPath.row].thumbnail?.path.makeUrlPortrait ?? "") +
-                             (comics[indexPath.row].thumbnail?.imageExtension ?? ""))
-        detailVC.portraitImageView.image = image
-        detailVC.nameLabel.text = comics[indexPath.row].title
-        detailVC.detailLabel.text = comics[indexPath.row].description
-
+        let image = getImage(path: comic.thumbnail?.path,
+                             size: .portrait,
+                             extention: comic.thumbnail?.imageExtension)
+        detailVC.configureWith(comic, image: image)
         navigationController?.pushViewController(detailVC, animated: true)
-
     }
 }
 
@@ -121,21 +127,19 @@ return cell
 
 extension ViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        let inputedText = searchText.replacingOccurrences(of: " ", with: "%20")
-        print(inputedText)
-
-        let urlString = "https://gateway.marvel.com:443/v1/public/comics?format=comic&title=\(inputedText)&formatType=comic&hasDigitalIssue=true&orderBy=focDate&limit=100&ts=1&apikey=7e1b58c9e3967cddad472e676e668a4e&hash=56ea6ee528ff5b2a8724f7a312bcc6f6"
-
-        print(urlString)
-        print(inputedText)
-        fetchSeries(from: urlString)
-
+        guard !searchText.isEmpty else { return }
+        
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { _ in
+            self.fetchComics(from: self.urlConstructor.getUrl(name: "title", value: searchText))
+        })
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        fetchSeries(from: Constants.marvelDigitalComics)
+        fetchComics(from: urlConstructor.getUrl(name: nil, value: nil))
     }
 }
+
 
 
 
