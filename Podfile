@@ -2,6 +2,6 @@
 # platform :ios, '9.0'
 
 target 'AlamofireHW' do
-  pod 'Alamofire', '~> 3.1.2'
+  pod 'Alamofire', '~> 5.5'
 
 end
